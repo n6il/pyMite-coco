@@ -1,0 +1,35 @@
+====================
+The Desktop Platform
+====================
+
+:Author:    Dean Hall
+
+
+Purpose
+-------
+
+This is a sample project that demonstrates running Python-on-a-Chip on the
+the 64-bit desktop.  Any POSIX-compliant OS should work (Mac OS X, Linux, Cygwin).
+An MS Windows command shell is NOT POSIX-compliant, if you want to run in
+a windows command shell, use the ``windows`` platform instead.
+
+
+Building the Project
+--------------------
+
+Start with a clean source tree.
+
+The desktop64 is the default platform of the makefile build system,
+so typing ``make`` in the root directory will build for the desktop::
+
+    $ make
+
+The default application is to run the interactive prompt, ipm.
+To run the host-side of ipm and launch the target-side type::
+
+    $ make ipm
+
+Read ``docs/src/InteractivePyMite.txt`` to learn how to run ipm.
+
+
+.. :mode=rest:

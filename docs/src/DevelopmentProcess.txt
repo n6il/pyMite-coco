@@ -1,0 +1,210 @@
+.. Copyright 2006 Dean Hall
+   This file is part of the Python-on-a-Chip documentation.
+   This file is licensed under the MIT License.
+   See the LICENSE file for details.
+
+
+==========================
+PyMite Development Process
+==========================
+
+:Author:    Dean Hall
+
+
+Purpose
+-------
+
+This document describes the process used to make changes to files in the
+Python-on-a-Chip project.  In doing so, it serves as a how-to manual for the
+developer and can be ignored by the user.
+
+This document is incomplete and subject to change.  Please suggest improvements
+and ask questions on the maillist_ to clarify any points.
+
+.. _maillist: http://groups.google.com/group/python-on-a-chip
+
+
+Overview
+--------
+
+Software quality is enhanced when the project developers consistently
+employ a defined software process.  The process should enhance the development
+of the software and not burden it.  This process is a typical distributed
+development process that uses Mercurial_ and `Google Code`_.
+Since long process documents often go unread, this document is as concise as
+possible.
+
+.. _Mercurial: http://mercurial.selenic.com/
+.. _`Google Code`: http://code.google.com/
+
+Here is a brief description of the process:
+
+    #. `Create an Issue`_
+    #. `Do the Work`_
+    #. `Keep in Sync`_
+    #. `Link Commits and Messages`_
+    #. `Run tests`_
+    #. `Post for Review`_
+    #. `Push, Comment and Announce`_
+
+
+Create an Issue
+---------------
+
+`Create a new issue`_ to capture and document enhancments and defects.
+
+.. _`Create a new issue`: http://code.google.com/p/python-on-a-chip/issues/entry
+
+The following table explains what to enter in the fields when creating an issue:
+
+=========== =================================== ================================
+Field       What to enter                       Example
+=========== =================================== ================================
+Summary     Short sentence *starting with verb* Enable compiler warnings as
+            that explains the issue             errors
+Description A longer explanation of the problem
+            possibly with example code that
+            exercises or exposes the issue.
+Status      If you want it, leave it as         Accepted
+            Accepted.  Otherwise clear the box.
+Owner       If you want it, take it.  Otherwise dwhall256
+            leave it blank.
+Labels      Select the proper label-type from   Type-Defect
+            the three that are given: Type,     Priority-Medium
+            Priority and Component.             Component-pmvm
+=========== =================================== ================================
+
+The `Summary` field is often copied into the release notes' change log, with
+the opening verb changed to the past tense.  Conceive your `Summary` from that
+point of view.  The `Milestone-` label is used by the project manager to know
+what issues should be resolved for what releases.  Leave out the `Milestone`
+label unless you've been told to do otherwise.  Select the most appropriate
+component from the `Component-` list.  Even if the resolution touches more
+than one component, select the one that applies best.
+
+
+Do the Work
+-----------
+
+The developer must first obtain a local copy of the code.
+Mercurial is a distributed version control system that induces the developer
+to create a clone of the repository on his local system.
+The developer then has absolute permissions over that local clone
+including the ability to commit locally.
+
+Whereas in Subversion a developer may have made a branch to be allowed
+to commit code without affecting the development trunk, in Mercurial
+the developer can simply work on his local clone.
+
+So, for this project, regardless of the size of changes a developer is making,
+he should work on his local clone and *not* create a branch (using the mercurial
+branch command).  Branches are reserved for very big difference such as between
+major releases like the 0X series and the 1X series.
+
+The developer creates a local clone like this:
+
+    hg clone https://youruserid@python-on-a-chip.googlecode.com/hg/
+
+If the work involved is a defect, the developer should create the smallest
+test possible that exposes the defect.  This regression test should be added
+to the project's automated test system::
+
+    hg add src/test/system/tNNN.c src/test/system/tNNN.py
+
+If the work required a significant architectural change,
+a document should be created which explains the design of the work.
+This document should be composed in `reStructuredText`_ and
+added to the project's automated documentation build system ``docs/src/``::
+
+    hg add docs/src/NewDocumentTitle.txt
+
+
+.. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
+
+
+Keep in Sync
+------------
+
+While doing the work, if the main repository is updated, you should pull those
+changes into your branch so that your working copy is up-to-date.
+Staying synced is easy; just use the commands::
+
+    hg pull
+    hg up
+
+Pay attention to the output of this command to see if there are conflicts that
+must be resolved.
+
+
+Link Commits and Messages
+-------------------------
+
+Every time the developer commits code to his clone, he should add a
+commit message that references the issue he's working on and
+some details about the changes made.  Here's a typical example::
+
+    hg ci -m "Fixes issue NNN.  Fixes logic in the COMPARE_OP bytecode"
+
+Using the term "Fixes issue NNN" lets Google Code automatically create a
+link in the issue comments that refers to the changeset of the commit.
+
+Doing this creates a precise two-way linkage between the
+physical changes to the code (the mercurial changeset) and the notes
+in the Google Code issue, resulting in a documented activity
+that is easy for others to follow.
+
+
+Run Tests
+---------
+
+The project has an automated test system that is run by typing the following
+from the root of the project::
+
+    make check
+
+These tests must pass before the developer may pushed his changes back to the
+Google Code repository.  Passing these tests is not the only qualification for
+pushing.  If the work done impacts any of the project source code, then testing
+should also be performed on the relevant target platforms.  If the issue
+describes a defect, then you should already have a test in the automated test
+system, so that test will be run by ``make check``.
+
+
+Post for Review
+---------------
+
+.. NOTE:: The Google Code review process should NOT be used.
+
+After the developer does the work, syncs to the trunk and runs the tests,
+he posts the changes for review.  To share code for a review, the developer
+should create a patch file like this::
+
+    hg diff > issueNNN.patch
+
+He should send an email to the `p14p developer mailling list`_ and attach
+the compressed patch file.
+
+Reviewers give polite and professional feedback to the developer within
+48 hours or provide an estimate of how much longer it will take to review
+the changes.
+
+The developer applies all the feedback and re-tests the branch.
+
+.. _`p14p developer mailling list`: http://groups.google.com/group/python-on-a-chip
+
+
+Push, Comment and Announce
+--------------------------
+
+Mercurial prevents a developer from pushing code to a repository
+if he hasn't already pulled the latest changes.  Since at this point,
+the developer has already pulled the latest global changes, merged them with
+his local changes and run the tests, it is time to push::
+
+    hg push
+
+Add a comment to the issue and resolve it if it wasn't already resolved
+automatically.  Finally, announce that the issue is fixed on the mailling list.
+
+
+.. :mode=rest:

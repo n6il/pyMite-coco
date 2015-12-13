@@ -1,0 +1,82 @@
+.. Copyright 2009 Dean Hall
+   This file is part of the Python-on-a-Chip documentation.
+   This file is licensed under the MIT License.
+   See the LICENSE file for details.
+
+
+====================
+PyMite Documentation
+====================
+
+:Author:    Dean Hall
+:Id:        $Id$
+
+Purpose
+-------
+
+This document lists the available documents in this directory and a brief
+explanation of their contents.  This document is intended to help the newcomer
+understand the scope of the project and intended purpose of the software.
+
+
+The following table lists the available documents and their purpose.
+
+
+=================================== ======  ==========  ========================
+File                                Useful to . . .     Explains . . .
+----------------------------------- ------------------  ------------------------
+\                                   User    Developer   \
+----------------------------------- ------  ----------  ------------------------
+`Doxygen API Documentation`_        N       Y           Structure of the source
+                                                        code for PyMite                                                        
+AssertStatement.html_               N       Y           the software design
+                                                        for the assert statement
+BuildSystem.html_                   Y       Y           the details on
+                                                        how to build PyMite
+DevelopmentProcess.html_            N       Y           the PyMite
+                                                        development procedure
+ErrorsAndExceptions.html_           N       Y           the software design
+                                                        of VM errors and
+                                                        exceptions
+FrequentlyAskedQuestions.html_      Y       Y           Answers FAQs.
+HeapDesign.html_                    N       Y           the software design
+                                                        of the VM heap
+HowToProgramTheAt91sam7s64-ek.html_ Y       Y           how to flash
+                                                        a target processor
+HowToReleasePyMite.html_            N       Y           how to prepare a release
+                                                        package
+HowToUsePyMite.html_                Y       Y           the high-level C API
+                                                        to run PyMite
+InteractivePyMite.html_             Y       Y           how to run the
+                                                        interactive interface
+ModuleImages.html_                  N       Y           how to create and use
+                                                        images of modules
+PyMiteFeatures.html_                Y       Y           the high level features
+                                                        of PyMite compared to
+                                                        Python
+PyMiteOverview.html_                Y       Y           the generalities of
+                                                        PyMite
+StringObjects.html_                 N       Y           the software design
+                                                        of String objects
+Testing.html_                       N       Y           the unit and system
+                                                        test framework in PyMite
+=================================== ======  ==========  ========================
+
+.. _AssertStatement.html: AssertStatement.html
+.. _BuildSystem.html: BuildSystem.html
+.. _DevelopmentProcess.html: DevelopmentProcess.html
+.. _ErrorsAndExceptions.html: ErrorsAndExceptions.html
+.. _FrequentlyAskedQuestions.html: FrequentlyAskedQuestions.html
+.. _HeapDesign.html: HeapDesign.html
+.. _HowToProgramTheAt91sam7s64-ek.html: HowToProgramTheAt91sam7s64-ek.html
+.. _HowToReleasePyMite.html: HowToReleasePyMite.html
+.. _HowToUsePyMite.html: HowToUsePyMite.html
+.. _InteractivePyMite.html: InteractivePyMite.html
+.. _ModuleImages.html: ModuleImages.html
+.. _PyMiteFeatures.html: PyMiteFeatures.html
+.. _PyMiteOverview.html: PyMiteOverview.html
+.. _StringObjects.html: StringObjects.html
+.. _Testing.html: Testing.html
+.. _`Doxygen API Documentation`: dox/index.html
+
+.. :mode=rest:
